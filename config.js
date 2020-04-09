@@ -1,10 +1,10 @@
 const mysql = require('mysql2');
 
 var database = mysql.createConnection({
-  host: 'remotemysql.com',
-  user: 'otY4HCuT1A',
-  password: 'cL2G7Luwfo',
-  database: 'otY4HCuT1A'
+  host: '52.76.143.84',
+  user: 'root',
+  password: 'nopassword',
+  database: 'ukmi'
 })
 
 database.connect(err => {
