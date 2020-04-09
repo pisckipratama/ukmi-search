@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"
+    integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+  <title>Hello, world!</title>
+</head>
+
+<body>
+  <div class="container">
+    <br />
+    <h3 class="text-center">Pencarian Data</h3>
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-10 col-lg-8">
+        <form class="card card-sm" method="GET">
+          <div class="card-body row no-gutters align-items-center">
+            <div class="col-auto">
+              <i class="fas fa-search h4 text-body mr-2"></i>
+            </div>
+            <!--end of col-->
+            <div class="col">
+              <input class="form-control form-control-lg form-control-borderless" type="search" name="nim"
+                placeholder="Your NIM">
+            </div>
+            <!--end of col-->
+            <div class="col-auto">
+              <button class="btn btn-lg btn-success" type="submit">Search</button>
+            </div>
+            <!--end of col-->
+          </div>
+        </form>
+        <br>
+        <% if (data.length > 0 && url >= 6) { %>
+        <table class="table table-striped ml-2">
+          <tbody>
+            <tr>
+              <th scope="col">NIM</th>
+              <th scope="col"><%= data[0].nim %></th>
+            </tr>
+            <tr>
+              <th scope="row">Nama Lengkap</th>
+              <td><%= data[0].namaLengkap %></td>
+            </tr>
+            <tr>
+              <th scope="row">Jurusan</th>
+              <td><%= data[0].jurusan %></td>
+            </tr>
+            <tr>
+              <th scope="row">Tempat Tanggal Lahir</th>
+              <td><%= data[0].tempatLahir %>, <%= moment(data[0].tanggalLahir).format('LL') %></td>
+            </tr>
+            <tr>
+              <th scope="row">Alamat Sekarang</th>
+              <td><%= data[0].alamat %></td>
+            </tr>
+            <tr>
+              <th scope="row">No Handphone</th>
+              <td><%= data[0].nohp %></td>
+            </tr>
+            <tr>
+              <th scope="row">Email</th>
+              <td><%= data[0].email %></td>
+            </tr>
+            <tr>
+              <th scope="row">Divisi</th>
+              <td><%= data[0].divisi %></td>
+            </tr>
+            <tr>
+              <th scope="row">Hobi</th>
+              <td><%= data[0].hobby %></td>
+            </tr>
+            <tr>
+              <th scope="row">Pengalaman Organisasi</th>
+              <td><%= data[0].pengalamanOrganisasi %></td>
+            </tr>
+            <tr>
+              <th scope="row">Pengkaderan <br> <span class="text-muted">yang sudah diikuti</span></th>
+              <td><%= data[0].pengkaderan %></td>
+            </tr>
+            <tr>
+              <th scope="row">Sertifikat <br> <span class="text-muted">selama kepengurusan</span></th>
+              <td><%= data[0].sertifikat %></td>
+            </tr>
+          </tbody>
+        </table>
+        <% } else { %>
+        <h5 class="text-center">Data Not Found</h5>
+        <% } %>
+
+      </div>
+      <!--end of col-->
+    </div>
+  </div>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
