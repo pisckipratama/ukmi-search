@@ -18,5 +18,38 @@ module.exports = pool => {
     })
   })
 
+  router.get('/login', (req, res) => {
+    res.render('login');
+  });
+
+  router.post('/login', (req, res) => {
+    const { username, password } = req.body;
+    let sql = `SELECT * FROM users WHERE username=$1`
+
+    pool.query(sql, [username], (err, result) => {
+      if (!err) {
+        if (result.rows.length > 0) {
+          if (result.rows[0].password === password) {
+            console.log('mantul')
+            res.redirect('/admin')
+          } else {
+            console.log('password salah')
+            res.redirect('/login')
+          }
+        } else {
+          console.log('username eweh')
+          res.redirect('/login')
+        }
+      } else {
+        console.error(err)
+        res.send(err);
+      }
+    })
+  })
+
+  router.get('/logout', (req, res) => {
+    res.redirect('/login')
+  })
+  
   return router
 };

@@ -13,6 +13,21 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"
     integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
   <title>Kader UKMI</title>
+
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+
+    }
+
+    .form-control {
+      border: 0;
+    }
+
+    .fa-heart-o {
+      color: maroon;
+    }
+  </style>
 </head>
 
 <body>
@@ -28,8 +43,7 @@
             </div>
             <!--end of col-->
             <div class="col">
-              <input class="form-control form-control-lg form-control-borderless" type="search" name="nim"
-                placeholder="Your NIM">
+              <input class="form-control form-control-lg" type="search" name="nim" placeholder="Your NIM">
             </div>
             <!--end of col-->
             <div class="col-auto">
@@ -83,12 +97,14 @@
               <td style="width: 70%"><%= data[0].pengalamanorganisasi ? data[0].pengalamanorganisasi : "-" %></td>
             </tr>
             <tr>
-              <th scope="row" style="width: 30%">Pengkaderan <br> <span class="text-muted">yang sudah diikuti</span></th>
+              <th scope="row" style="width: 30%">Pengkaderan <br> <span class="text-muted">yang sudah diikuti</span>
+              </th>
               <td style="width: 70%"><%= data[0].pengkaderan ? data[0].pengkaderan : "-" %></td>
             </tr>
             <tr>
-              <th scope="row" style="width: 30%">Sertifikat <br> <span class="text-muted">selama kepengurusan</span></th>
-              <td style="width: 70%"><%= data[0].sertifikat %></td>
+              <th scope="row" style="width: 30%">Sertifikat <br> <span class="text-muted">selama kepengurusan</span>
+              </th>
+              <td style="width: 70%"><%= data[0].sertifikat ? data[0].sertifikat : "-" %></td>
             </tr>
           </tbody>
         </table>

@@ -9,15 +9,21 @@ const app = express();
 
 const { Pool } = require('pg');
 const pool = new Pool({
-  user: 'ezdcjmwkqijcfe',
-  host: 'ec2-54-147-209-121.compute-1.amazonaws.com',
-  database: 'd5d61lskdpugm',
-  password: '1a7eff832d87660bd443ed4c4dc9d35e982ec085a19c4076ebd4ce4d9198392d',
+  // user: 'ezdcjmwkqijcfe',
+  // host: 'ec2-54-147-209-121.compute-1.amazonaws.com',
+  // database: 'd5d61lskdpugm',
+  // password: '1a7eff832d87660bd443ed4c4dc9d35e982ec085a19c4076ebd4ce4d9198392d',
+  // port: 5432
+  user: 'postgres',
+  host: 'localhost',
+  database: 'ukmi',
+  password: 'docker',
   port: 5432
 })
 console.log("successfull connect to the database")
 
 const indexRouter = require('./routes/index')(pool);
+const usersRouter = require('./routes/users')(pool);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -32,6 +38,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
+app.use('/admin', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
