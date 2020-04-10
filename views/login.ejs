@@ -26,14 +26,13 @@
 
         <!-- Icon -->
         <div class="fadeIn first">
-          <h5 class="mt-3">Admin Panel UKMI</h5>
+          <h5 class="mt-3"><%= title %></h5>
           <img src="/images/logo.png" id="icon" alt="User Icon" />
         </div>
-        <% let a = 0 %>
-        <% if (a === 1) { %>
+        <% if (loginMessage.length > 0) { %>
         <div class="container">
           <div class="alert alert-warning alert-dismissible fade show" role="alert">
-            <strong>Login Failed!</strong> Username not found.
+            <strong>Login Failed!</strong> <%= loginMessage %>.
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -42,9 +41,9 @@
         <% } %>
         <!-- Login Form -->
         <form method="POST" action="">
-          <input type="text" id="login" class="fadeIn second" name="username" placeholder="username">
+          <input type="text" id="login" class="fadeIn second" name="<%= placeholder %>" placeholder="<%= placeholder %>">
           <input type="password" id="password" class="fadeIn third" name="password" placeholder="password">
-          <input type="submit" class="fadeIn fourth" value="Log In">
+          <input type="submit" class="fadeIn fourth" value="<%= button %>">
         </form>
 
         <!-- Remind Passowrd -->
