@@ -98,7 +98,10 @@ module.exports = pool => {
   })
 
   router.get('/logout', (req, res) => {
-    res.redirect('/login')
+    req.session.destroy(function (err) {
+      if (err) res.send(err);
+      return res.redirect('/');
+    })
   })
 
   return router
