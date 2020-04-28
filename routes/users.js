@@ -1,10 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const moment = require('moment')
-moment.locale('id')
+const moment = require('moment');
+const utils = require('../helpers/utlis');
+
+moment.locale('id');
 
 module.exports = pool => {
-  router.get('/', (req, res, next) => {
+  router.get('/', utils.isLoggedIn, (req, res, next) => {
     pool.query('SELECT * FROM kader ORDER BY namalengkap', (err, result) => {
       if (!err) {
         res.render('admin/list', { user: req.session, data: result.rows });
@@ -15,7 +17,7 @@ module.exports = pool => {
     })
   });
 
-  router.get('/detail/:id', (req, res) => {
+  router.get('/detail/:id', utils.isLoggedIn, (req, res) => {
     pool.query('SELECT * FROM kader WHERE kaderid=$1', [parseInt(req.params.id)], (err, result) => {
       if (!err) {
         res.render('admin/details', { data: result.rows, moment })
@@ -26,11 +28,11 @@ module.exports = pool => {
     })
   })
 
-  router.get('/add', (req, res) => {
+  router.get('/add', utils.isLoggedIn, (req, res) => {
     res.render('admin/add')
   })
 
-  router.post('/add', (req, res) => {
+  router.post('/add', utils.isLoggedIn, (req, res) => {
     const { nim, namalengkap, jurusan, tempatlahir, tanggallahir, alamat, nohp, email, divisi, hobby, pengalamanorganisasi, pengkaderan, sertifikat } = req.body;
     let sql = `INSERT INTO kader (nim, namalengkap, jurusan, tempatlahir, tanggallahir, alamat, nohp, email, divisi, hobby, pengalamanorganisasi, pengkaderan, sertifikat, datecreated, dateupdated) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, NOW(), NOW())`;
 
@@ -45,7 +47,7 @@ module.exports = pool => {
     })
   })
 
-  router.get('/edit/:id', (req, res) => {
+  router.get('/edit/:id', utils.isLoggedIn, (req, res) => {
     pool.query('SELECT * FROM kader WHERE kaderid=$1', [parseInt(req.params.id)], (err, result) => {
       if (!err) {
         let data = result.rows[0];
@@ -57,7 +59,7 @@ module.exports = pool => {
     })
   });
 
-  router.post('/edit/:id', (req, res) => {
+  router.post('/edit/:id', utils.isLoggedIn, (req, res) => {
     const { nim, namalengkap, jurusan, tempatlahir, tanggallahir, alamat, nohp, email, divisi, hobby, pengalamanorganisasi, pengkaderan, sertifikat } = req.body;
     let sql = `UPDATE kader SET nim=$1, namalengkap=$2, jurusan=$3, tempatlahir=$4, tanggallahir=$5, alamat=$6, nohp=$7, email=$8, divisi=$9, hobby=$10, pengalamanorganisasi=$11, pengkaderan=$12, sertifikat=$13 WHERE kaderid=$14`;
 
@@ -72,7 +74,7 @@ module.exports = pool => {
     })
   })
 
-  router.get('/delete/:id', (req, res) => {
+  router.get('/delete/:id', utils.isLoggedIn, (req, res) => {
     pool.query(`DELETE FROM kader WHERE kaderid=$1`, [parseInt(req.params.id)], err => {
       if (!err) {
         console.log('delete success')
@@ -84,6 +86,5 @@ module.exports = pool => {
     })
   })
 
-
-  return router
+  return router;
 };

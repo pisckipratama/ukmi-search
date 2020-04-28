@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const moment = require('moment')
+const moment = require('moment');
+const utils = require('../helpers/utlis');
 
 moment.locale('id')
 
@@ -101,6 +102,13 @@ module.exports = pool => {
     req.session.destroy(function (err) {
       if (err) res.send(err);
       return res.redirect('/login');
+    })
+  })
+
+  router.get('/signout', utils.isLoggedIn, (req, res) => {
+    req.session.destroy((err) => {
+      if (err) res.send(err);
+      return res.redirect('/');
     })
   })
 
