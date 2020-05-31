@@ -29,22 +29,32 @@ module.exports = pool => {
   });
 
   router.get('/add', utils.isLoggedInAdmin, (req, res) => {
-    res.render('admin/add')
+    res.render('admin/add', { userMsg: req.flash('userMsg') })
   });
 
   router.post('/add', utils.isLoggedInAdmin, (req, res) => {
     const { nim, namalengkap, jurusan, tempatlahir, tanggallahir, alamat, nohp, email, divisi, hobby, pengalamanorganisasi, pengkaderan, sertifikat } = req.body;
     let sql = `INSERT INTO kader (nim, namalengkap, jurusan, tempatlahir, tanggallahir, alamat, nohp, email, divisi, hobby, pengalamanorganisasi, pengkaderan, sertifikat, password, datecreated, dateupdated) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, 'nopassword', NOW(), NOW())`;
 
-    pool.query(sql, [nim, namalengkap, jurusan, tempatlahir, tanggallahir, alamat, nohp, email, divisi, hobby, pengalamanorganisasi, pengkaderan, sertifikat], err => {
-      if (!err) {
-        console.log('add new data success')
-        res.redirect('/admin');
+    pool.query(`SELECT kaderid, nim, namalengkap FROM kader WHERE nim=$1`, [nim], (err, result) => {
+      if (err) return res.send(err.message);
+
+      let data = result.rows[0];
+      if (data) {
+        req.flash('userMsg', 'NIM already exist!');
+        res.redirect('/admin/add');
       } else {
-        console.error(err)
-        res.send(err)
-      }
-    })
+        pool.query(sql, [nim, namalengkap, jurusan, tempatlahir, tanggallahir, alamat, nohp, email, divisi, hobby, pengalamanorganisasi, pengkaderan, sertifikat], err => {
+          if (!err) {
+            console.log('add new data success')
+            res.redirect('/admin');
+          } else {
+            console.error(err);
+            res.send(err);
+          }
+        });
+      };
+    });
   });
 
   router.get('/edit/:id', utils.isLoggedInAdmin, (req, res) => {
