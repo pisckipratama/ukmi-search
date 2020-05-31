@@ -16,23 +16,26 @@ const app = express();
 // db setup
 const { Pool } = require('pg');
 const pool = new Pool({
-  user: 'ezdcjmwkqijcfe',
-  host: 'ec2-54-147-209-121.compute-1.amazonaws.com',
-  database: 'd5d61lskdpugm',
-  password: '1a7eff832d87660bd443ed4c4dc9d35e982ec085a19c4076ebd4ce4d9198392d',
-  port: 5432
-
-  // user: 'postgres',
-  // host: 'localhost',
-  // database: 'ukmi',
-  // password: 'docker',
+  // user: 'ezdcjmwkqijcfe',
+  // host: 'ec2-54-147-209-121.compute-1.amazonaws.com',
+  // database: 'd5d61lskdpugm',
+  // password: '1a7eff832d87660bd443ed4c4dc9d35e982ec085a19c4076ebd4ce4d9198392d',
   // port: 5432
+
+  user: 'postgres',
+  host: 'localhost',
+  database: 'ukmi',
+  password: 'docker',
+  port: 5432
 })
 console.log("successfull connect to the database")
 
 // declare user
-const indexRouter = require('./routes/index')(pool);
-const usersRouter = require('./routes/users')(pool);
+const indexRouter = require('./routes/index.js')(pool);
+const resultRouter = require('./routes/result')(pool);
+const loginAdminRouter = require('./routes/admin/login')(pool);
+const dashboardRouter = require('./routes/admin/dashboard')(pool);
+// const usersRouter = require('./routes/users')(pool);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -60,7 +63,9 @@ app.use(function (req, res, next) {
 
 // call router
 app.use('/', indexRouter);
-app.use('/admin', usersRouter);
+app.use('/result', resultRouter);
+app.use('/panel', loginAdminRouter);
+app.use('/admin', dashboardRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
